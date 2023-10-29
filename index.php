@@ -4,71 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        *{
-            margin: 0;
-        }
-        body{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        body > h3{
-            text-align: center;
-        }
-        table, tr, td{
-            border: 2px solid;
-            border-collapse: collapse;
-        }
-        td{
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            text-align: center;
-        }
-        table{
-            width: 50%;
-        }
-        .table-head{
-            background-color: blanchedalmond;
-        }
-        .table-gray{
-            background-color: lightgray;
-            opacity: 0.5;
-        }
-        .table-red{
-            background-color: lightcoral;
-        }
-        .container{
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .form-box{
-            width: 100%;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-        }
-        .calendar-box{
-            text-align: center;
-            width: 100%;
-            margin: auto;
-        }
-        .nav-btn{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-        .nav-btn > button{
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-        .nav-btn > button > a{
-            text-decoration: none;
-            font-size: 24px;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
