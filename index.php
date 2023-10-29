@@ -61,66 +61,67 @@
 
     </div>
 
-    <?php
-    use function PHPSTORM_META\elementType;
+    <div class="calendar-box">
+        <?php
+        use function PHPSTORM_META\elementType;
 
-    // 該函式用於印出月曆
-    function calendar($year, $month){
-        $date = $year.'-'.$month;
-        // 使用陣列$arr來存放之後要印出的月曆內容
-        $arr = ['<div class="calendar-box">',
-        '<tr class="table-head"><td>日</td><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td></tr>'];
-        // $n用於追蹤該月的開頭到結尾(這裡的減去 date('w', strtotime($date.'-1')) 是計算當月的開頭是第一周的星期幾)
-        $n = 1 - date('w', strtotime($date.'-1'));
-        // $len為當前月份的長度
-        $len = date('t', strtotime($date));
-        // $prevLen預留用來存放前一個月的長度
-        $prevLen = null;
-        $currentMonth = $month;
+        // 該函式用於印出月曆
+        function calendar($year, $month){
+            $date = $year.'-'.$month;
+            // 使用陣列$arr來存放之後要印出的月曆內容
+            $arr = ['<tr class="table-head"><td>日</td><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td></tr>'];
+            // $n用於追蹤該月的開頭到結尾(這裡的減去 date('w', strtotime($date.'-1')) 是計算當月的開頭是第一周的星期幾)
+            $n = 1 - date('w', strtotime($date.'-1'));
+            // $len為當前月份的長度
+            $len = date('t', strtotime($date));
+            // $prevLen預留用來存放前一個月的長度
+            $prevLen = null;
+            $currentMonth = $month;
 
-        for($i=0; $i<6; $i++){
-            array_push($arr, '<tr>');
+            for($i=0; $i<6; $i++){
+                array_push($arr, '<tr>');
 
-            for($j=0; $j<7; $j++){
+                for($j=0; $j<7; $j++){
 
-                // 若$n小於0代表目前還是上一個月的日期
-                if($n <= 0){
-                    $currentMonth = intval($month) - 1;
-                    if($currentMonth <= 0) $currentMonth = 12;
+                    // 若$n小於0代表目前還是上一個月的日期
+                    if($n <= 0){
+                        $currentMonth = intval($month) - 1;
+                        if($currentMonth <= 0) $currentMonth = 12;
 
-                    $prevLen = date('t', strtotime($year.'-'.$currentMonth.'-1'));
-                    $d = $prevLen + $n;
-                    if($currentMonth <= 0) $currentMonth = 12;
+                        $prevLen = date('t', strtotime($year.'-'.$currentMonth.'-1'));
+                        $d = $prevLen + $n;
+                        if($currentMonth <= 0) $currentMonth = 12;
 
-                    array_push($arr, '<td class="table-gray">'.$currentMonth.'/'.$d.'</td>');
+                        array_push($arr, '<td class="table-gray">'.$currentMonth.'/'.$d.'</td>');
+                    }
+                    // 若$n大於當前月份長度代表已經到了下一個月
+                    else if($n > $len){
+                        $d = $n - $len;
+                        $currentMonth = intval($month) + 1;
+                        if($currentMonth > 12) $currentMonth = 1;
+
+                        array_push($arr, '<td class="table-gray">'.$currentMonth.'/'.$d.'</td>');
+                    }
+                    else{
+                        $w = date('w', strtotime($date.'-'.$n));
+                        // 若日期為周六或周日，改變背景顏色
+                        if($w == 0 || $w == 6) array_push($arr, '<td class="table-red">'.$month.'/'.$n.'</td>');
+                        else array_push($arr, '<td>'.$month.'/'.$n.'</td>');
+                    }
+
+                    $n++;
                 }
-                // 若$n大於當前月份長度代表已經到了下一個月
-                else if($n > $len){
-                    $d = $n - $len;
-                    $currentMonth = intval($month) + 1;
-                    if($currentMonth > 12) $currentMonth = 1;
-
-                    array_push($arr, '<td class="table-gray">'.$currentMonth.'/'.$d.'</td>');
-                }
-                else{
-                    $w = date('w', strtotime($date.'-'.$n));
-                    // 若日期為周六或周日，改變背景顏色
-                    if($w == 0 || $w == 6) array_push($arr, '<td class="table-red">'.$month.'/'.$n.'</td>');
-                    else array_push($arr, '<td>'.$month.'/'.$n.'</td>');
-                }
-
-                $n++;
+                array_push($arr, '</tr>');
             }
-            array_push($arr, '</tr>');
+
+            return '<div class="calendar-date"><h3>西元'.$year.'年 '.$month.'月</h3></div>'.
+                    '<div class="calendar-table"><table>'.join($arr).'</table></div>';
         }
 
-        return '<h3>西元'.$year.'年 '.$month.'月</h3>'.'<table>'.join($arr).'</table></div>';
-    }
+        echo calendar($_GET['year'], $_GET['month']);
 
-    echo calendar($_GET['year'], $_GET['month']);
-
-    ?>
-    <br>
+        ?>
+    </div>
 
 </div>
 
