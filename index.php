@@ -31,8 +31,8 @@
             // 取得當前url,並使用explode()分離url"?"前後的部分 
             $url = explode('?', $_SERVER['REQUEST_URI']); 
 
-            // 如果$_GET為空，將網頁重新導向當前日期的日曆
-            if(empty($_GET)){
+            // 如果$_GET為空或是日期輸入為空，將網頁重新導向當前日期的日曆
+            if(empty($_GET) || empty($_GET['year']) || empty($_GET['month'])){
                 $year = date('Y');
                 $month = date('m');
                 header('location:'.$url[0].'?year='.$year.'&month='.$month);
@@ -67,10 +67,14 @@
     // 該函式用於印出月曆
     function calendar($year, $month){
         $date = $year.'-'.$month;
+        // 使用陣列$arr來存放之後要印出的月曆內容
         $arr = ['<div class="calendar-box">',
         '<tr class="table-head"><td>日</td><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td></tr>'];
+        // $n用於追蹤該月的開頭到結尾(這裡的減去 date('w', strtotime($date.'-1')) 是計算當月的開頭是第一周的星期幾)
         $n = 1 - date('w', strtotime($date.'-1'));
-        $len = date('t', strtotime($date.'-1'));
+        // $len為當前月份的長度
+        $len = date('t', strtotime($date));
+        // $prevLen預留用來存放前一個月的長度
         $prevLen = null;
         $currentMonth = $month;
 
@@ -78,8 +82,8 @@
             array_push($arr, '<tr>');
 
             for($j=0; $j<7; $j++){
-                $d = $n;
 
+                // 若$n小於0代表目前還是上一個月的日期
                 if($n <= 0){
                     $currentMonth = intval($month) - 1;
                     if($currentMonth <= 0) $currentMonth = 12;
@@ -90,6 +94,7 @@
 
                     array_push($arr, '<td class="table-gray">'.$currentMonth.'/'.$d.'</td>');
                 }
+                // 若$n大於當前月份長度代表已經到了下一個月
                 else if($n > $len){
                     $d = $n - $len;
                     $currentMonth = intval($month) + 1;
@@ -99,6 +104,7 @@
                 }
                 else{
                     $w = date('w', strtotime($date.'-'.$n));
+                    // 若日期為周六或周日，改變背景顏色
                     if($w == 0 || $w == 6) array_push($arr, '<td class="table-red">'.$month.'/'.$n.'</td>');
                     else array_push($arr, '<td>'.$month.'/'.$n.'</td>');
                 }
@@ -111,13 +117,7 @@
         return '<h3>西元'.$year.'年 '.$month.'月</h3>'.'<table>'.join($arr).'</table></div>';
     }
 
-    if(empty($_GET)) echo calendar('0', '01');
-    else if(empty($_GET['year']) || empty($_GET['month'])){
-        echo '<p>輸入錯誤，請輸入完整的年份和月份</p>';
-        // echo calendar('0', '01');
-    }
-    else echo calendar($_GET['year'], $_GET['month']);
-
+    echo calendar($_GET['year'], $_GET['month']);
 
     ?>
     <br>
