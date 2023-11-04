@@ -1,5 +1,6 @@
 *{
     margin: 0;
+    box-sizing: border-box;
 }
 body{
     display: flex;
@@ -33,6 +34,8 @@ table{
     background-color: lightcoral;
 }
 .container{
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -51,23 +54,22 @@ table{
     justify-content: center;
     flex-wrap: wrap;
 }
-.calendar-date{
-    width: 100%;
-}
 .calendar-table{
     display: flex;
     justify-content: center;
 }
-.nav-btn{
+.nav-box{
     width: 100%;
+    height: 200px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    background-color: antiquewhite;
 }
-.nav-btn > button{
+.nav-box > button{
     margin-left: 20px;
     margin-right: 20px;
 }
-.nav-btn > button > a{
+.nav-box > button > a{
     text-decoration: none;
     font-size: 24px;
 }

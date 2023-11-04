@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
 
@@ -26,7 +26,7 @@
         </form>
     </div>
 
-    <div class="nav-btn">
+    <div class="nav-box">
         <?php
             // 取得當前url,並使用explode()分離url"?"前後的部分 
             $url = explode('?', $_SERVER['REQUEST_URI']); 
@@ -55,7 +55,8 @@
                 $prev = '?year='.$prevYear.'&month='.$prevMonth;
                 $next = '?year='.$nextYear.'&month='.$nextMonth;
                 echo '<button><a href="'.$url[0].$prev.'"> < </a></button>';
-                echo '<button><a href="'.$url[0].$next.'"> > </a></button><br>';
+                echo '<div class="nav-date">西元'.$_GET['year'].'年 '.$_GET['month'].'月</div>';
+                echo '<button><a href="'.$url[0].$next.'"> > </a></button>';
             }
         ?>
 
@@ -114,8 +115,7 @@
                 array_push($arr, '</tr>');
             }
 
-            return '<div class="calendar-date"><h3>西元'.$year.'年 '.$month.'月</h3></div>'.
-                    '<div class="calendar-table"><table>'.join($arr).'</table></div>';
+            return '<div class="calendar-table"><table>'.join($arr).'</table></div>';
         }
 
         echo calendar($_GET['year'], $_GET['month']);
