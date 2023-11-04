@@ -19,11 +19,12 @@ td{
     height: 50px;
     font-size: 24px;
     text-align: center;
+    background-color: aliceblue;
 }
 table{
     width: 100%;
 }
-.table-head{
+.table-head > td{
     background-color: blanchedalmond;
 }
 .table-gray{
@@ -49,7 +50,7 @@ table{
 .calendar-box{
     text-align: center;
     width: 80vw;
-    height: 60vh;
+    height: 70vh;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -57,17 +58,27 @@ table{
 .calendar-table{
     display: flex;
     justify-content: center;
+    width: 60%;
+    height: 100%;
+}
+.calendar-img{
+    width: 40%;
+    height: 100%;
+    /* background-image: url("https://picsum.photos/id/10/600/600"); */
+    background-size: cover;
+    border: 2px solid black;
+    border-right: 0px;
 }
 .nav-box{
     width: 100%;
-    height: 200px;
+    height: 30px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     background-color: antiquewhite;
 }
-.nav-box > button{
-    margin-left: 20px;
-    margin-right: 20px;
+.nav-date{
+    margin-left: 100px;
+    margin-right: 100px;
 }
 .nav-box > button > a{
     text-decoration: none;
