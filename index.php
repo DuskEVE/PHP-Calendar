@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calendar</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
@@ -68,10 +68,10 @@
 
             <?php
             use function PHPSTORM_META\elementType;
-
+            
+            // 於月曆左側印出背景圖片，圖片依月份不同而改變
             $imgIds = ['29', '27', '13', '25', '18', '19', '17', '11', '10', '12', '15', '256'];
             $index = $_GET['month'] - 1;
-
             echo '<div class="calendar-img" style="background-image: url(https://picsum.photos/id/'.$imgIds[$index].'/600/600)"></div>';
 
             // 該函式用於印出月曆
@@ -85,6 +85,7 @@
                 $len = date('t', strtotime($date));
                 // $prevLen預留用來存放前一個月的長度
                 $prevLen = null;
+                // $currentMonth存放當前月份，之後用於印出月曆每日的月份(m/d)
                 $currentMonth = $month;
 
                 for($i=0; $i<6; $i++){
@@ -94,7 +95,7 @@
 
                         // 若$n小於0代表目前還是上一個月的日期
                         if($n <= 0){
-                            $currentMonth = intval($month) - 1;
+                            $currentMonth = $month - 1;
                             if($currentMonth <= 0) $currentMonth = 12;
 
                             $prevLen = date('t', strtotime($year.'-'.$currentMonth.'-1'));
@@ -106,7 +107,7 @@
                         // 若$n大於當前月份長度代表已經到了下一個月
                         else if($n > $len){
                             $d = $n - $len;
-                            $currentMonth = intval($month) + 1;
+                            $currentMonth = $month + 1;
                             if($currentMonth > 12) $currentMonth = 1;
 
                             array_push($arr, '<td class="table-gray">'.$currentMonth.'/'.$d.'</td>');
