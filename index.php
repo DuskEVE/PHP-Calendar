@@ -11,8 +11,14 @@
     
     <div class="container">
 
-        <div class="calendar-title"><h3>萬年曆</h3></div>
+        <!-- <div class="back-img"></div> -->
+        <?php
+            //印出網頁背景圖片，背景圖片隨年份改變 
+            $backImgId = $_GET['year'] % 1000 + 1;
+            echo '<div class="back-img" style="background-image: url(https://picsum.photos/id/'.$backImgId.'/1900/1080)"></div>';
+        ?>
 
+        <div class="calendar-title"><h3>萬年曆</h3></div>
             
         <div class="form-box">
             <form action="?" method="get">
