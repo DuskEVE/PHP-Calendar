@@ -29,6 +29,7 @@ td:hover{
 }
 table{
     width: 100%;
+    border: 2px solid black;
 }
 .table-head > td{
     background-color: blanchedalmond;
