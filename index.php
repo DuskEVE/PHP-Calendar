@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
@@ -21,7 +24,8 @@
                 <label for="month">月份:</label>
                 <input type="number" id="month" name="month" min="1" max="12" require>
                 &nbsp;&nbsp;
-                <input type="submit">
+                <!-- <input type="submit"> -->
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
 
@@ -53,9 +57,9 @@
                     
                     $prev = '?year='.$prevYear.'&month='.$prevMonth;
                     $next = '?year='.$nextYear.'&month='.$nextMonth;
-                    echo '<button><a href="'.$url[0].$prev.'"> < </a></button>';
+                    echo '<button><a href="'.$url[0].$prev.'"><i class="fa-solid fa-arrow-left"></i></a></button>';
                     echo '<div class="nav-date">西元'.$_GET['year'].'年 '.$_GET['month'].'月</div>';
-                    echo '<button><a href="'.$url[0].$next.'"> > </a></button>';
+                    echo '<button><a href="'.$url[0].$next.'"><i class="fa-solid fa-arrow-right"></i></a></button>';
                 }
             ?>
 
