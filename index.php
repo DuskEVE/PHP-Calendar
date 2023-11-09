@@ -136,15 +136,10 @@
             ?>
         </div>
 
-        <?php
-            //印出網頁背景圖片，背景圖片隨年份改變 
-            $backImgId = $_GET['year'] % 1000 + 1;
-            echo '<div class="back-img" style="background-image: url(https://picsum.photos/id/'.$backImgId.'/1900/1080)"></div>';
-        ?>
+        <div class="back-img back-img-01"></div>
 
     </div>
-    
 
-
+    <script src="./index.js"></script>
 </body>
 </html>
