@@ -19,12 +19,11 @@
         <div class="form-box">
             <form action="?" method="get">
                 <label for="year">西元年:</label>
-                <input type="number" id="year" name="year" min="0" max="10000" require>
+                <input type="number" id="year" name="year" min="0" max="99999" require>
                 &nbsp;&nbsp;
                 <label for="month">月份:</label>
                 <input type="number" id="month" name="month" min="1" max="12" require>
                 &nbsp;&nbsp;
-                <!-- <input type="submit"> -->
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
@@ -63,21 +62,26 @@
                 }
             ?>
 
+            <div class="nav-back-img-btn">
+                <i class="nav-back-img-btn-01 fa-solid fa-circle on"></i>
+                <i class="nav-back-img-btn-02 fa-regular fa-circle"></i>
+                <i class="nav-back-img-btn-03 fa-regular fa-circle"></i>
+                <i class="nav-back-img-btn-04 fa-regular fa-circle"></i>
+                <i class="nav-back-img-btn-05 fa-regular fa-circle"></i>
+            </div>
         </div>
 
         <div class="calendar-box">
 
-            <!-- <div class="calendar-img"></div> -->
-
             <?php
             use function PHPSTORM_META\elementType;
             
-            // 於月曆左側印出背景圖片，圖片依月份不同而改變
+            // 於月曆左側印出背景圖片，圖片依月份不同而改變(使用PICSUM的線上圖片，所以只需要改變url中的id來更換圖片)
             $imgIds = ['29', '27', '13', '25', '18', '19', '17', '11', '10', '12', '15', '256'];
             $index = $_GET['month'] - 1;
             echo '<div class="calendar-img" style="background-image: url(https://picsum.photos/id/'.$imgIds[$index].'/600/600)"></div>';
 
-            // 該函式用於印出月曆
+            // 該函式用於輸出月曆，輸入年份和月份(皆為int)並回傳完整的table內容(string)
             function calendar($year, $month){
                 $date = $year.'-'.$month;
                 // 使用陣列$arr來存放之後要印出的月曆內容
@@ -104,7 +108,7 @@
                             $prevLen = date('t', strtotime($year.'-'.$currentMonth.'-1'));
                             $d = $prevLen + $n;
                             if($currentMonth <= 0) $currentMonth = 12;
-
+                            // 改變背景顏色和透明度(加上class="table-gray")
                             array_push($arr, '<td class="table-gray">'.$currentMonth.'/'.$d.'</td>');
                         }
                         // 若$n大於當前月份長度代表已經到了下一個月
@@ -112,12 +116,12 @@
                             $d = $n - $len;
                             $currentMonth = $month + 1;
                             if($currentMonth > 12) $currentMonth = 1;
-
+                            // 改變背景顏色和透明度(加上class="table-gray")
                             array_push($arr, '<td class="table-gray">'.$currentMonth.'/'.$d.'</td>');
                         }
                         else{
                             $w = date('w', strtotime($date.'-'.$n));
-                            // 若日期為周六或周日，改變背景顏色
+                            // 若日期為周六或周日，改變背景顏色(加上class="table-red")
                             if($w == 0 || $w == 6) array_push($arr, '<td class="table-red">'.$month.'/'.$n.'</td>');
                             else array_push($arr, '<td>'.$month.'/'.$n.'</td>');
                         }
@@ -127,11 +131,11 @@
                     array_push($arr, '</tr>');
                 }
 
-                return '<div class="calendar-table"><table>'.join($arr).'</table></div>';
+                return '<table>'.join($arr).'</table>';
             }
-
             
-            echo calendar($_GET['year'], $_GET['month']);
+            // 呼叫calendar函式輸出月曆
+            echo '<div class="calendar-table">'.calendar($_GET['year'], $_GET['month']).'</div>';
             
             ?>
         </div>
