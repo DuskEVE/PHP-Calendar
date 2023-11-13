@@ -54,8 +54,6 @@ const switchImg = (event) => {
 };
 
 // 為每一個背景圖案切換按鈕設定event listener
-imgBtn01.addEventListener('click', switchImg);
-imgBtn02.addEventListener('click', switchImg);
-imgBtn03.addEventListener('click', switchImg);
-imgBtn04.addEventListener('click', switchImg);
-imgBtn05.addEventListener('click', switchImg);
+for(let i=0; i<btns.length; i++){
+    btns[i].addEventListener('click', switchImg);
+}
